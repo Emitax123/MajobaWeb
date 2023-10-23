@@ -1,0 +1,17 @@
+<!-- open_excel.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Abrir archivo Excel</title>
+</head>
+<body>
+    <h1>Abrir archivo Excel</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="file" accept=".xlsx">
+        <button type="submit">Abrir</button>
+    </form>
+</body>
+</html>
+

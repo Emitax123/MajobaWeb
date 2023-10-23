@@ -1,0 +1,23 @@
+[]{% extends 'base_template.html' %}
+{% load static %}
+{% block content %}
+<div style="display: flex;flex-flow: row;">
+<div class="employee-cont">
+    <div>
+        <h4>{{ obj.name }} {{ obj.ape }} </h4>
+        <img src="{{ obj.img.url }}" class="employee-img">
+        <div class="details">
+            <span>Telefono: {{ obj.phone }}</span>
+            <span>Correo: {{ obj.mail }}</span>
+            <span>Direccion: {{obj.dir }} </span>
+            <span>Posicion: {{obj.position }} </span>
+            <span>Sucursal. {{obj.sucursal }} </span>
+        </div>
+    </div>
+    
+</div>
+<a style="margin: 100px 20px;" href="{% url 'modify' type=obj.type id=obj.pk %}"><button style="border-radius: 5px; font-size: 15px;">Modificar</button></a>
+    </a>
+</div>
+
+{% endblock %}

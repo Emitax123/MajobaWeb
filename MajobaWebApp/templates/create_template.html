@@ -1,0 +1,57 @@
+{% extends 'base_template.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container-form">
+        <div class="form-location">
+            <header>{{title}}</header>
+            <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <div class="form-group {{ id}}">
+                <div class="datos-personales">
+                    <span class="titulo">Datos del {{ id }}</span>
+                </div>
+                <div class="fields">
+                    {% for field in form %}
+                    <div class="input-field">
+                        <label for="{{ field.id_for_label }}"> {{ field.label}}</label>
+                        {% if field.name == 'img' %}
+
+                        <div class="input-field">
+                         <img src="{{ form.instance.img.url }}" alt="Imagen actual" width="100">
+                         <input style="width: 200px;" type="file" name="img" accept="image/*" id="id_img"><input type="hidden" name="initial-img" value="media/empleados/anonimus.png" id="initial-id_img">
+                        </div>
+                        {% else %}
+                        {{ field }}
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+                
+            </div>
+            
+            <div class="container-button">
+                <div class="container-button">
+                <button type="submit" name="save_and_backhome" class="next-bton">
+                    Guardar
+                </button>
+                </div>
+                <div class="container-button">
+                <button type="submit" name="save_and_return" class="retrun-bton">
+                    Guardar y seguir ingresando
+                </button>
+            </div>
+            </div>
+            
+    </form>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Formulario:', document.getElementById('form').innerHTML);
+        });
+    </script>
+
+
+{% endblock %}

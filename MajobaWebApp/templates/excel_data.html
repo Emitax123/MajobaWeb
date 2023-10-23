@@ -1,0 +1,22 @@
+<!-- excel_data.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Datos del archivo Excel</title>
+</head>
+<body>
+    <h1>Datos del archivo Excel</h1>
+    <h2>Hoja activa: {{ sheet_name }}</h2>
+    <table>
+        {% for row in cell_values %}
+        <tr>
+            {% for cell in row %}
+            <td>{{ cell }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
+

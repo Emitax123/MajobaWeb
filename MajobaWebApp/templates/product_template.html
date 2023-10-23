@@ -1,0 +1,19 @@
+[]{% extends 'base_template.html' %}
+{% load static %}
+{% block content %}
+<div style="display: flex;flex-flow: row;">
+<div class="product-cont">
+    <div>
+        <h4>{{ obj.name }}</h4>
+        <img src="{{ obj.img.url }}" class="prod-img">
+        <div class="details">
+            <span>Precio: {{ obj.price }}</span>
+            <span>Stock: {{ obj.stock }}</span>
+            <span>Categoria. {{obj.category }} </span>
+        </div>
+    </div>
+</div>
+<a style="margin: 100px 20px;" href="{% url 'modify' type=obj.type id=obj.pk %}"><button style="border-radius: 5px; font-size: 15px;">Modificar</button></a>
+    </a>
+</div>
+{% endblock %}

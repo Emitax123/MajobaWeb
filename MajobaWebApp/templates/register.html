@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../MajobaWebApp/media/logo-majoba-icon.png">
+    <!-- Croper -->
+    <link rel="stylesheet" href="../MajobaWebApp/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet" type="text/css"/>
+    <title>Majoba</title>
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+    <!-- Swiper -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
+    <!-- Font -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.min.css'>
+    <link rel="stylesheet" href="../MajobaWebApp/style.css">
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav>
+    <div class="navbar">
+      <div class="nav-logo">
+        <a href=""><img src="../MajobaWebApp/media/logo-majoba.png" alt="">
+        <span class="majoba-logo-hidden">Majoba S.A</span>
+        </a>
+      </div>
+
+    </div>  
+  </nav>
+  <!-- End NavBar-->
+    <div class="container-form">
+        <div class="form-location">
+        <header>Registro de empleado</header>
+        <form action="" method="post">
+            <div class="form-first">
+                <div class="datos-personales">
+                    <span class="titulo">Datos de la persona</span>
+                </div>
+                <div class="fields">
+
+                    <div class="input-field">
+                        <label for="firstname">Nombre</label>
+                        <input type="text" placeholder="Nombre completo" name="firstname" id="firstname">
+                    </div>
+              
+
+               
+                    <div class="input-field">
+                        <label for="lastname">Apellido</label>
+                        <input type="text" placeholder="Apellido" name="lastname" id="lastname">
+                    </div>
+               
+
+               
+                    <div class="input-field">
+                        <label for="date">Nacimiento</label>
+                        <input type="date" placeholder="" name="date" id="date">
+                    </div>
+        
+
+              
+                    <div class="input-field">
+                        <label for="mial">Correo</label>
+                        <input type="mail" placeholder="Ingrese un mail valido" name="mail" id="mail">
+                    </div>
+             
+
+             
+                    <div class="input-field">
+                        <label for="date">Telefono</label>
+                        <input type="text" placeholder="Numero telefonico" name="telefono" id="telefono">
+                    </div>
+            
+
+               
+                    <div class="input-field">
+                        <label for="occupation" >Puesto</label>
+                        <input list="options" name="occupation" id="occupation" onchange="habilitarInput()">
+                        <datalist id="options">
+                          <option value="Conductor">
+                          <option value="Opción 2">
+                          <option value="Opción 3">
+                          <!-- Agrega más opciones según tus necesidades -->
+                        </datalist>
+                    </div>
+
+                    <div class="input-field">
+                        <label for="vehicle">Asignar Vehiculo</label>
+                        <input list="options" name="vehicle" id="vehicle" disabled>
+                        <datalist id="options">
+                          <option value="Conductor">
+                          <option value="Opción 2">
+                          <option value="Opción 3">
+                          <!-- Agrega más opciones según tus necesidades -->
+                        </datalist>
+                    </div>
+                    <div class="input-field">
+                        
+                    </div>
+                    <div class="input-field">
+                        
+                    </div>
+
+                    <div class="input-field" >
+                        <label for="date">Imagen</label>
+                        <input  type="file" id="profileImage" accept="image/*" onchange="previewImage(event)" class="custom-file-input"/>
+                       
+
+                    </div>
+                    <div id="imagePreview"></div>
+                    <button class="next-bton">
+                        <span class="btn-txt">Siguiente</span>
+                        <i class="uil uil-angle-right-b"></i>
+                        
+                    </button>
+
+                </div>
+
+            </div>
+
+        </form>
+        </div>
+    </div>
+  <!-- Fin contenedor -->     
+  <script>
+    function habilitarInput() {
+        var select = document.getElementById("occupation");
+        var input = document.getElementById("vehicle");
+
+        if (select.value === "Conductor") {
+            input.disabled = false;
+        } else {
+            input.disabled = true;
+        }
+    }
+
+    const input = document.getElementById('occupation');
+
+        input.addEventListener('input', function(event) {
+          const value = event.target.value;
+          const datalist = document.getElementById('options');
+          const optionExists = Array.from(datalist.options).some(function(option) {
+            return option.value === value;
+          });
+      
+          if (!optionExists) {
+            event.target.value = '';
+          }
+
+          
+        });
+     
+
+</script>
+<script>
+    function previewImage(event) {
+  var input = event.target;
+  var reader = new FileReader();
+
+  reader.onload = function () {
+    var img = document.createElement('img');
+    img.src = reader.result;
+
+    var preview = document.getElementById('imagePreview');
+    preview.innerHTML = '';
+    preview.appendChild(img);
+  };
+
+  reader.readAsDataURL(input.files[0]);
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js" type="text/javascript"></script>
+</body>
+</html>

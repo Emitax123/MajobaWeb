@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../MajobaWebApp/media/logo-majoba-icon.png">
+    <title>Majoba</title>
+    {% load static %}
+    <link  href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
+    <!-- Swiper -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
+    <!-- Font -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.min.css'>
+    <link rel="stylesheet" type="text/css" href="{% static 'MajobaWebApp/css/style.css' %}">
+    <script src="{% static 'MajobaWebApp/js/jquery-3.7.0.min.js' %}"></script>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav>
+    <div class="navbar">
+      <div class="nav-logo">
+        <a href="{% url 'index' %}"><img src="{% static 'MajobaWebApp/img/logo-majoba.png' %}" alt="">
+        <span class="majoba-logo-hidden">Majoba S.A</span>
+        </a>
+      </div>
+      <div class="notification-area">
+        <a onclick="notifAction()" id="noti-btn" class="notification-btn" id="notification-btn">
+          <img src="{% static 'MajobaWebApp/img/bell-svgrepo-com (1).svg' %}" alt="noti-icon">
+          {% if count > 0  %}
+          <span id="noti-count" class="noti-count">
+            {{ count }}
+          </span>
+          {% endif %}
+        </a>
+        <div id="notification-content" class="">
+          {% for Notification in notifications %}
+          {% if Notification.is_read %}
+          <div class="noti-item read"> 
+            <a id="noti-link" href="{% url 'modelView' type=Notification.type id=Notification.obj_id %}">
+              <p> <span style="font-weight: 600;">{{ Notification.sender.username }}</span> <span>{{ Notification.msg }}</span></p>
+            </a>
+          </div>
+          {% else %}
+          <div class="noti-item"> 
+            <a id="noti-link" href="{% url 'notiView' notiId=Notification.id %}">
+              <p> <span style="font-weight: 600;">{{ Notification.sender.username }}</span><span>{{ Notification.msg }}</span></p>
+            </a>
+          </div>
+          {% endif %}
+            
+          {% endfor %}
+        </div>
+      </div>
+    </div>  
+  </nav>
+  <!-- End NavBar-->
+   
+<div class="container-principal">
+    <div class="sidebar">
+        <ul class="sidebar-list">
+          <li class="list-item">
+            <div class="submenu-item">
+              Empleados
+            </div>
+            <ul class="submenu-container">
+              <li><a href="{% url 'create' id='Empleado' %}"><span>Crear un Empleado</span></a></li>
+              <li><a href="{% url 'list' id='Empleado' %}"><span>Listar Empleados</span></a></li>
+            </ul>
+          </li>
+          <li class="list-item">
+            <div class="submenu-item">
+              Vehiculos
+            </div>
+            <ul class="submenu-container">
+              <li><a href="{% url 'create' id='Vehiculo' %}"><span>Crear un Vehiculo</span></a></li>
+              <li><a href="{% url 'list' id='Vehiculo' %}"><span>Listar Vehiculos</span></a></li>
+            </ul>
+          </li>
+          <li class="list-item">
+            <div class="submenu-item">
+              Productos
+            </div>
+            <ul class="submenu-container">
+              <li><a href="{% url 'create' id='Producto' %}"> <span>Crear un Producto</span></a></li>
+              <li><a href="{% url 'list' id='Producto' %}"><span>Listar Produsctos</span></a></li>
+            </ul>
+          </li>
+          <li style="display: flex; flex-flow: row;" class="list-item">
+            
+            <a href="{% url 'tasks' %}">
+            <div class="item">
+              Centro de tareas
+            </div>
+            </a>
+            {% if pending > 0 %}
+            <span id="task-count" class="task-count">
+              {{ pending }}
+            </span>
+            {% endif %}
+          </li>
+        </ul>
+    </div>
+    
+    {% block content %}
+    {% endblock %}
+    
+</div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.js"></script>
+
+    <script src="{% static 'MajobaWebApp/js/jquery-3.7.0.min.js' %}"></script>
+
+    <script src="{% static 'MajobaWebApp/js/java.js' %}"></script>
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+    <script>
+      var swiper = new Swiper(".mySwiper", {
+        slidesPerView: 3,
+        spaceBetween: 30,
+        slidesPerGroup: 3,
+        loop: true,
+        loopFillGroupWithBlank: true,
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+      });
+    </script>
+
+    
+    <script>
+       let arrow = document.querySelectorAll(".submenu-item");
+      for (var i = 0; i < arrow.length; i++) {
+        arrow[i].addEventListener("click", (e)=>{
+          let arrowParent = e.target.parentElement;//selecting main parent of arrow
+          arrowParent.classList.toggle("showMenu");
+    });
+  }
+    </script>
+</body>
+</html>

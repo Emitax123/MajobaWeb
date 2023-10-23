@@ -1,0 +1,99 @@
+[]{% extends 'base_template.html' %}
+{% load static %}
+{% block content %}
+
+<div class="task-container">
+    <a style="padding: 0px 50px 10px; width: 100%;"  href="{% url 'create' id='Tarea' %}">
+        <button style="border-radius: 5px; max-height: 40px;">
+          Crear tarea
+        </button>
+        </a>
+    {% for Task in tasks %}
+    <div id="mensaje-div" ></div>
+    <div class="task">  
+        <h4>Creado por {{ Task.creator.username }}</h4>
+        <div class="details">
+            <p>{{ Task.msg }}</p>
+            <p id="state" style="font-weight: 600;">Estado: {{ Task.state }}</p>
+            <a href="{{ Task.file.url }}" download>Arhivo</a>
+        </div>
+        {% if Task.state != 'Terminado' %}
+            {% if Task.taker == request.user.id and Task.state == 'En proceso' %}
+                <a href="{% url 'taskend' id=Task.id %}"><button >Terminar</button></a>
+                <a href="{% url 'taskcancel' id=Task.id %}"><button >Cancelar</button></a>
+                
+                
+            {% else %}
+            <!-- Aqui deberia ver si el usuario no acpto ya la tarea, caso de hacerlo se muestra el boton
+                Terminado y el boton Cancelar, caso contrario se muestra el boton Aceptar
+                Una vez se presione aceptar se envia la modificacion al servidor, lo mismo con los otros botones
+            -->
+            {% if Task.state == "Pendiente" %}
+                <button class="taskButton" used="False" data_valor="{{ Task.id }}" >Aceptar</button>
+            {%endif%}
+            {% endif %}
+        {% endif %}
+    </div>
+    
+    {% endfor %}
+
+
+    <script>
+        const buttons = document.querySelectorAll(".taskButton");
+        buttons.forEach((boton) => {
+        boton.addEventListener("click", () => {
+        var used = boton.getAttribute("used");
+        if (used === "true") {
+            return; // Evitar que se realice la acción nuevamente
+        }
+
+  // Verificar si el botón ya ha sido clicado
+  
+
+            
+ 
+        var valor = boton.getAttribute("data_valor");
+        var xhr = new XMLHttpRequest();
+    
+    
+        xhr.open("GET", "/accept_task/" + valor, true);
+        fetch("/accept_task/"+valor)
+            .then(response => response.json())
+            .then(data => {
+                // Mostrar el mensaje según el resultado obtenido de la base de datos
+                var mensajeDiv = document.getElementById("mensaje-div");
+                mensajeDiv.style.opacity = "100";
+                if (data.message === "la funcion es correcta") {
+                    
+                    if (boton.textContent === "Aceptar") {
+                        boton.style.transition = "1s";
+                        boton.textContent = "Aceptado";
+                        boton.style.backgroundColor = "green";
+                    }
+                    mensajeDiv.textContent = "Has aceptado la tarea";
+                } else {
+                    if (boton.textContent === "Aceptar") {
+                        boton.style.transition = "1s";
+                        boton.style.opacity = 0;
+                    }
+                    mensajeDiv.textContent = "La tarea ya ha sido aceptada";
+                }
+
+                // Configurar el tiempo para que el mensaje desaparezca después de unos segundos
+                setTimeout(function() {
+                    mensajeDiv.style.opacity = "0";
+                    boton.setAttribute("used", "true");
+                    location.reload();
+                }, 2000); // 3000 milisegundos = 3 segundos
+            })
+        
+    
+    // Enviar la solicitud AJAX
+        xhr.send();
+        }
+        )});
+
+        
+    </script>
+
+{% endblock %}

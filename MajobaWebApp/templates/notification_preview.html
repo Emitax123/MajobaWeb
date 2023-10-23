@@ -1,0 +1,33 @@
+{% extends 'base_template.html' %}
+{% load static %}
+{% block content %}
+<div class="noti-container" style="padding:200px 100px; display: flex;">
+    <div>
+        {% if id == 1 %} <!-- Empleados -->
+        <h1>Aqui esta el contenido de la notificacion</h1>
+        <ul style="color: black;">
+            <li><h2> {{ obj.name }}</h2></li>
+            <li><p>{{ obj.position }}</p></li>
+        </ul>
+        {% endif %}
+
+        {% if id == 2 %} <!-- Maquinas -->
+        <h1>Aqui esta el contenido de la notificacion</h1>
+        <ul style="color: black;">
+            <li><h2> {{ obj.name }}</h2></li>
+            <li><p>{{ obj.conducto.name }}</p></li>
+        </ul>
+        {% endif %}
+
+        {% if id == 3 %}<!-- Productos -->
+        <h1>Aqui esta el contenido de la notificacion</h1>
+        <ul style="color: black;">
+            <li><h2> {{ obj.name }}</h2></li>
+            <li><p>{{ obj.price }}</p></li>
+        </ul>
+        {% endif %}
+
+        
+    </div>
+</div>
+{% endblock %}

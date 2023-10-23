@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Funcionalidades</title>
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'MajobaWebApp/css/style.css' %}">
+</head>
+<body>
+  <h1>Funcionalidades disponibles</h1>
+  <form action="{% url 'logout' %}" class="action">
+    {% csrf_token %}
+    <button type="submit">Cerrar Sesion</button>
+  </form>
+  
+  <ul>
+    <li>
+      <h3>Crear categoría</h3>
+      <form action="{% url 'create_category' %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Crear">
+      </form>
+    </li>
+    <li>
+      <h3>Mostrar categorías</h3>
+      <form action="{% url 'list_category' %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Mostrar">
+      </form>
+    </li>
+    <li>
+      <h3>Crear producto</h3>
+      <form action="{% url 'create_product' %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Crear">
+      </form>
+    </li>
+    <li>
+      <h3>Mostrar productos</h3>
+      <form action="{% url 'list_product' %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Mostrar">
+      </form>
+    </li>
+    <li>
+      <h3>Crear empleado</h3>
+      <form action="{% url 'create_employee' %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Crear">
+      </form>
+    </li>
+    <li>
+      <h3>Mostrar empleados</h3>
+      <form action="{% url 'list_employee' %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Mostrar">
+      </form>
+    </li>
+    <li>
+      <h3>Crear máquina</h3>
+      <form action="{% url 'create_machine' %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Crear">
+      </form>
+    </li>
+    <li>
+      <h3>Mostrar maquinas</h3>
+      <form action="{% url 'list_machine' %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Mostrar">
+      </form>
+    </li>
+  </ul>
+</body>
+</html>

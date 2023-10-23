@@ -1,0 +1,37 @@
+{% extends 'base_template.html' %}
+{% load static %}
+
+{% block content %}
+<div class="lista-contenida">
+    <div class="obj-list-container">
+        {% for Object in list %}
+        <div class="obj-list-item">
+            {% if id == 'Empleado' %}
+            <a href="{% url 'modelView' type=Object.type id=Object.pk%}">
+            <h3> Empleado: {{ Object.name }} {{Object.ape}} </h3>
+           
+            {% endif %}
+            {% if id == 'Producto' %}
+            <a href="{% url 'modelView' type=Object.type id=Object.pk%}">
+            <h3>Producto: {{ Object.name }} Precio: {{Object.price}}</h3>
+            </a>
+            {% endif %}
+            {% if id == 'Vehiculo' %}
+            <a href="{% url 'modelView' type=Object.type id=Object.pk%}">
+            <h3>Vehiculo: {{ Object.name }} Patente: {{ Object.patente}} </h3>
+            </a>
+            {% endif %}
+            {% if id == 'Tarea' %}
+            <a href="{% url 'modelView' type=Object.type id=Object.pk %}">
+            <h3>{{ Object.creator.username }} ha creado una nueva tarea</h3>
+            </a>
+            {% endif %}
+        </div>
+        {% empty %}
+            <p>No hay disponibles</p>
+        {% endfor %}
+        </div>
+    </div>
+
+</div>
+{% endblock %}

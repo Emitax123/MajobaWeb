@@ -1,0 +1,19 @@
+[]{% extends 'base_template.html' %}
+{% load static %}
+{% block content %}
+<div style="display: flex;flex-flow: row;">
+<div class="machine-cont">
+    <div>
+        <h4>{{ obj.name }} </h4>
+        <div class="details">
+            <span>Dominio: {{ obj.patente }}</span>
+            <span>Estado: {{ obj.state }}</span>
+            <a href="{% url 'modelView' type=obj.type id=obj.pk %}"><span>Conductor: {{obj.conductor.name }} </span></a>
+        </div>
+    </div>
+</div>
+<a style="margin: 100px 20px;" href="{% url 'modify' type=obj.type id=obj.pk %}"><button style="border-radius: 5px; font-size: 15px;">Modificar</button></a>
+    </a>
+</div>
+</div>
+{% endblock %}
